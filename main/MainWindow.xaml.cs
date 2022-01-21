@@ -54,7 +54,8 @@ namespace Azure_face_recognition
 
             using (var content = new ByteArrayContent(byteData))
             {
-                // 設定Content-Type：可以設定也可以不設定，基本上就是application/json 一般來說Content-Type可以直接加在header的Json中，但 HttpClient 必須將其分開
+                // 設定Content-Type：可以設定也可以不設定，基本上就是application/json 
+                // In C#, the content type is a header of the content, not of the request
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 response = await client.PutAsync(uri, content);
                 result = await response.Content.ReadAsStringAsync();
@@ -204,6 +205,7 @@ namespace Azure_face_recognition
                 url = PreviewURL.Text
             };
 
+            // Request parameters
             var queryString = HttpUtility.ParseQueryString("returnFaceId=true");
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", apiKey);
 
